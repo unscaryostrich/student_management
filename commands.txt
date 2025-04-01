@@ -1,1 +1,64 @@
-fadssgfr fgjhgkjhh
+create database student_management;
+
+create table students (
+  student_id SERIAL primary key,
+  first_name varchar(60) not null,
+  last_name varchar(60) not null ,
+  age int,
+  email varchar(255) unique
+  enrollment_date date default current_data
+);
+
+create table courses (
+ course_id SERIAL primary key,
+  course_name varchar(60) not null,
+  departmentiid int,
+ credits int not null
+);
+
+create table enrolllments (
+ enrollment_id SERIAL primary key,
+  student_id int references students
+  (student_id) on delete cascade,
+   course_id int references courses
+  (course_id) on delete cascade,
+  grade varchar(2)
+);
+
+create table departments (
+ department_id SERIAL primary key,
+  department_name varchar(100) not null
+);
+
+INSERT INTO students (first_name, last_name, age, email, enrollment_date)
+VALUES 
+('ram', 'ram', 23, 'ram@gmail.com', '2025-03-30'),
+('hare', 'hare', 24, 'hare@gmail.com', '2025-03-29'),
+('krishna', 'krishna', 25, 'krishna@gmail.com', '2025-03-28'),
+('shiva', 'shiva', 26, 'shiva@gmail.com',  '2025-03-27'),
+('bhole', 'bhole', 27, 'bhole@gmail.com',  '2025-03-26');
+
+
+INSERT INTO courses (course_name, departmentiid, credits) 
+VALUES 
+('Introduction to Computer Science', 1, 4),
+('Data Structures and Algorithms', 1, 3),
+('Organic Chemistry', 2, 4),
+('Calculus I', 3, 3),
+('Psychology 101', 4, 3);
+
+INSERT INTO enrollments (student_id, course_id, grade) 
+VALUES 
+(1, 1, 'A'),
+(2, 1, 'B'),
+(3, 2, 'A'),
+(4, 3, 'C'),
+(1, 4, 'B+');
+
+INSERT INTO departments (department_name) 
+VALUES 
+('Computer Science'),
+('Chemistry'),
+('Mathematics'),
+('Psychology'),
+('Physics');
